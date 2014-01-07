@@ -78,8 +78,8 @@ if (strpos($url, '.') == false) {
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>Mub.io</title>
+	<meta charset="utf-8">
+	<title><?php echo ucfirst($_SERVER['SERVER_NAME']) ?></title>
 </head>
 <body>
 	Welcome, friend. Sorry, but there's not much to see here.
