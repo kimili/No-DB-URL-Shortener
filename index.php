@@ -1,6 +1,20 @@
 <?php
 
 /*
+
+	No DB URL Shortener
+	(c) 2014 Michael Bester
+
+	https://github.com/kimili/No-DB-URL-Shortener
+	This code may be freely distributed under the MIT license.
+
+	Props to Ryan Petrich for the idea (https://gist.github.com/rpetrich/627137)
+	And to Ivan Akimov for the awesome HashIds library (http://www.hashids.org/php/)
+
+*/
+
+
+/*
  * Configuration
  */
 
@@ -42,7 +56,7 @@ if ( param('pw') == $password && trim(param('link')) != '' ) {
 	} else {
 		// if not, generate one.
 		require_once "lib/HashIds/Hashids.php";
-		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes
 		$hashids = new Hashids\Hashids($hashSalt, 1, $alphabet);
 
 		// Set the default timezone
