@@ -1,0 +1,1 @@
+This directory needs to be writable by the server in order to save short URLs
