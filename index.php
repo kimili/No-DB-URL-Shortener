@@ -56,7 +56,8 @@ if ( param('pw') == $password && trim(param('link')) != '' ) {
 	} else {
 		// if not, generate one.
 		require_once "lib/HashIds/Hashids.php";
-		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes
+		// Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
+		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
 		$hashids = new Hashids\Hashids($hashSalt, 1, $alphabet);
 
 		// Set the default timezone
