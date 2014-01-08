@@ -13,14 +13,50 @@
 
 */
 
+define('__ROOT__', dirname(__FILE__));
+
+/*
+ * Load required libraries
+ */
+require_once(__ROOT__.'/lib/PasswordHash/PasswordHash.php');
+require_once(__ROOT__.'/lib/HashIds/HashIds.php');
+
 /*
  * Get the config
  */
-define('__ROOT__', dirname(dirname(__FILE__)));
-if ( ! file_exists(__ROOT__.'inc/config.php') ) {
+
+define('CONFIG_FILE', __ROOT__.'/inc/config.php');
+if ( ! file_exists(CONFIG_FILE) ) {
 	die("Can't find the configuration file. Please make sure it is set up.");
 }
-require_once(__ROOT__.'inc/config.php');
+require_once(CONFIG_FILE);
+
+// Check for the hashed password
+if ( ! defined('HASHED_PASSWORD')  ) {
+	// If we don't have it, we have to generate it from the config
+	// Let's see if we need to display the set password form.
+	if ( ! isset($_POST['newpassword']) ) {
+		$setPassword = true;
+	} else {
+		$hasher = new PasswordHash(32768, false);
+		$hash = $hasher->HashPassword($_POST['newpassword']);
+
+		// Open up the config file for writing the hash to
+		$handle = fopen(CONFIG_FILE, 'a') or die('Cannot open file: ' . CONFIG_FILE);
+
+		// Set up the new data to write to the config.
+		$configAdditions = array();
+		$configAdditions[] = '';
+		$configAdditions[] = '// This hashed password is set automatically.';
+		$configAdditions[] = '// To reset your password, delete this comment and the HASHED_PASSWORD line below reload index.php in a browser';
+		$configAdditions[] = "define('HASHED_PASSWORD', '$hash');";
+
+		// And write it.
+		fwrite($handle, $configContents . implode("\n", $configAdditions));
+		// Close out the file
+		fclose($handle);
+	}
+}
 
 /*
  * A function to get params from either get or post requests.
@@ -55,7 +91,6 @@ if ( param('pw') == $password && trim(param('link')) != '' ) {
 		$hash = param('slug');
 	} else {
 		// if not, generate one.
-		require_once "lib/HashIds/Hashids.php";
 		// Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
 		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
 		$hashids = new Hashids\Hashids($hashSalt, 1, $alphabet);
@@ -97,6 +132,14 @@ if (strpos($url, '.') == false) {
 	<title><?php echo ucfirst($_SERVER['SERVER_NAME']) ?></title>
 </head>
 <body>
-	Welcome, friend. Sorry, but there's not much to see here.
+	<?php if ($setPassword): ?>
+		<form action="." method="post" accept-charset="utf-8">
+			<label for="password">Set a password</label>
+			<input type="text" name="newpassword" value="" id="password">
+			<input type="submit" value="Continue &rarr;">
+		</form>
+	<?php else: ?>
+		Welcome, friend. Sorry, but there's not much to see here.
+	<?php endif ?>
 </body>
 </html>
