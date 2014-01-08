@@ -13,14 +13,14 @@
 
 */
 
-
 /*
- * Configuration
+ * Get the config
  */
-
-$password = 'password';         // Change this to a secure password in order to secure the creation of new short links
-$hashSalt = 'example salt';     // Change this to a word or phrase of your choosing to salt the hashes.
-$timezone = 'America/New_York'; // Change this to your timezone. The available options are listed at http://www.php.net/manual/en/timezones.php
+define('__ROOT__', dirname(dirname(__FILE__)));
+if ( ! file_exists(__ROOT__.'inc/config.php') ) {
+	die("Can't find the configuration file. Please make sure it is set up.");
+}
+require_once(__ROOT__.'inc/config.php');
 
 /*
  * A function to get params from either get or post requests.

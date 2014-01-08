@@ -1,0 +1,17 @@
+<?php
+/*
+ * Configuration
+ */
+
+// Change this to a secure password in order to secure the creation of new short links
+$password = 'password';
+
+// Change this to a word or phrase of your choosing to salt your password.
+$passwordSalt = 'password';
+
+// Change this to a word or phrase of your choosing to salt the hashes.
+$hashSalt = 'example salt';
+
+// Change this to your timezone. The available options are listed at http://www.php.net/manual/en/timezones.php
+$timezone = 'America/New_York';
+
