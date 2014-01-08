@@ -4,12 +4,12 @@
 
 	No DB URL Shortener
 	(c) 2014 Michael Bester
-
 	https://github.com/kimili/No-DB-URL-Shortener
 	This code may be freely distributed under the MIT license.
 
 	Props to Ryan Petrich for the idea (https://gist.github.com/rpetrich/627137)
-	And to Ivan Akimov for the awesome HashIds library (http://www.hashids.org/php/)
+	Thanks to Ivan Akimov for the awesome HashIds library (http://www.hashids.org/php/)
+	Thanks to Solar Designs at Openwall for PHPass (http://www.openwall.com/phpass/)
 
 */
 
@@ -84,30 +84,60 @@ $contentDir = 'content/';
 /*
  * Check our parameters to see if we want to write a new short URL
  */
-if ( param('pw') == $password && trim(param('link')) != '' ) {
-	$slug = trim(param('slug'));
-	if ( $slug != '' ) {
-		// Did we pass in a slug to use?
-		$hash = param('slug');
+if ( param('pw') ) {
+
+	// We're trying to set up a new link
+	// Let's spit out JSON
+	header('Content-type: application/json');
+	$output = new stdClass;
+
+	// Check the password
+	$hasher = new PasswordHash(32768, false);
+	$authCheck = $hasher->CheckPassword(param('pw'), HASHED_PASSWORD);
+
+	if ($authCheck) {
+		// If we're in here, we're authenticated
+
+		// Did we pass in a link?
+		if ( trim(param('link')) != '' ) {
+			$slug = trim(param('slug'));
+			if ( $slug != '' ) {
+				// Did we pass in a slug to use?
+				$hash = param('slug');
+			} else {
+				// if not, generate one.
+				// Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
+				$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+				$hashids = new Hashids\Hashids($hashSalt, 1, $alphabet);
+
+				// Set the default timezone
+				date_default_timezone_set(TIMEZONE);
+
+				// get the current timestamp as a number that represents YYMMDDHHMMSS and use it as an ID
+				$id = intval(date('ymdHis'));
+				$hash = $hashids->encrypt($id);
+			}
+			$fh = fopen("$contentDir/urls/$hash.url", 'w') or die("Can't open file for writing. Please check your permissions");
+			fwrite($fh, param('link'));
+			fclose($fh);
+
+			$output->originalURL = param('link');
+			$output->shortURL = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/' . $hash;
+			echo json_encode($output);
+			exit();
+		} else {
+			$output->error = "No link passed in to shorten.";
+			echo json_encode($output);
+			exit();
+		}
 	} else {
-		// if not, generate one.
-		// Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
-		$alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-		$hashids = new Hashids\Hashids($hashSalt, 1, $alphabet);
-
-		// Set the default timezone
-		date_default_timezone_set($timezone);
-
-		// get the current timestamp as a number that represents YYMMDDHHMMSS and use it as an ID
-		$id = intval(date('ymdHis'));
-		$hash = $hashids->encrypt($id);
+		$output->error = "Sorry, but your password was incorrect.";
+		echo json_encode($output);
+		exit();
 	}
-	$fh = fopen("$contentDir/urls/$hash.url", 'w') or die("Can't open file for writing. Please check your permissions");
-	fwrite($fh, param('link'));
-	fclose($fh);
-	echo ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/' . $hash;
-	exit();
 }
+
+
 
 /*
  * Handle incoming Short URLs
