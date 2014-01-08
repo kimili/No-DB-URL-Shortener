@@ -19,7 +19,7 @@ define('__ROOT__', dirname(__FILE__));
  * Load required libraries
  */
 require_once(__ROOT__.'/lib/PasswordHash/PasswordHash.php');
-require_once(__ROOT__.'/lib/HashIds/HashIds.php');
+require_once(__ROOT__.'/lib/Hashids/Hashids.php');
 
 /*
  * Get the config
