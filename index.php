@@ -123,6 +123,9 @@ if ( param('pw') ) {
 
 			$output->originalURL = param('link');
 			$output->shortURL = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/' . $hash;
+			$output->baseURL = $_SERVER['SERVER_NAME'];
+			$output->hash = $hash;
+
 			echo json_encode($output);
 			exit();
 		} else {
