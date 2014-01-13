@@ -85,6 +85,17 @@ public function build_short_url()
 
 Note that I currently haven't provided any alternative methods to create new short URLs such as a form or a bookmarklet. The current implementation suits my immediate needs, but if you would like to set up some alternative avenues to create URLs, pull requests are more than welcome.
 
+## Changing Your Password
+
+If, at any time, you'd like to change your password, it's easy to do. Just take the following steps:
+
+* SSH or FTP into your server, and open `inc/config.php` for editing.
+* Delete the `HASHED_PASSWORD` definition and its comment. Save and close the file.
+* Reload the index page of your instance of the URL shortener in your browser.
+* Set a new password in the form there
+
+That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure to update your calls to the **/create** endpoint to use the new password!
+
 ## Version History
 
 0.1.0 - Current Stable
