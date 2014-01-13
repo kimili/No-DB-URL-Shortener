@@ -1,1 +1,9 @@
+# Turn on the Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Handle the link creation bits
+RewriteRule ^create.*$ /index.php?create=true [QSA,L]
+
+# A catch-all for any items not found
 ErrorDocument 404 /index.php
