@@ -1,6 +1,6 @@
 # The No Database URL Shortener
 
-This is a simple little URL shortener for personal use which utilizes flat files rather than a database in which to store its data. It's easy to set up, easy to use and secure.
+This is a simple little URL shortener for personal use which utilizes flat files rather than a database in which to store its data. It's easy to set up, easy to use, fast and secure.
 
 ## Installation
 
@@ -18,7 +18,7 @@ That's it! Once you've set your password, the URL Shortener is ready for you to 
 To generate a short URL and add it to the system, there is **/create** URL which you can make a REST call to. It accepts the following parameters:
 
 **pw** _required_  
-This is the password you set up during the installation process. Any requests to the create endpoint that don't include the password will result in an error.
+This is the password you set up during the installation process. Any requests to the **/create** endpoint that don't include the password will result in an error.
 
 **link** _required_  
 This is the link that you'd like to shorten.
@@ -55,7 +55,7 @@ Here's an example PHP function that makes the REST call to the URL shortener, pa
 ```
 public function build_short_url()
 {
-  $url_shortener_endpoint = 'http://mub.io/create;
+	$url_shortener_endpoint = 'http://mub.io/create;
 	$url_shortener_password = 'abc123';
 
 	$post = array_merge($_POST, array('pw' => $url_shortener_password));
