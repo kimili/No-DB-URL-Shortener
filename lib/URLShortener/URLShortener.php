@@ -37,14 +37,18 @@ require_once(CONFIG_FILE);
 class URLShortener
 {
 
-	private $_content_dir = 'content/';
+	private $_version          = '0.1.0';
+	private $_content_dir      = 'content/';
 	private $_daily_count_file = '';
-
-	// Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
-	private $_alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+	private $_alphabet         = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
 
 	public $needs_password_set = false;
 
+	/**
+	 * The class constructor. Handles basic flow.
+	 *
+	 * @return void
+	 **/
 	function __construct()
 	{
 		// Set up the private variable values
@@ -73,6 +77,16 @@ class URLShortener
 
 		// Did we get here? See if we need to forward the user along to a URL
 		$this->_do_saved_link_check();
+	}
+
+	/**
+	 * Returns the current version number
+	 *
+	 * @return string - the current version
+	 **/
+	public function get_version()
+	{
+		return $this->_version;
 	}
 
 	/**
