@@ -110,7 +110,7 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Contributors
 
-* Author:: [http://michaelbester.com](http://michaelbester.com), [on Twitter](http://twitter.com/mibester)
+* Author: [http://michaelbester.com](http://michaelbester.com), [on Twitter](http://twitter.com/mibester)
 * Contributor: Nik Khilnani [http://khilnani.org](http://khilnani.org), [on Twitter](http://twitter.com/nikkhilnani)
 
 ## License
