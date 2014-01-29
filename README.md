@@ -2,6 +2,12 @@
 
 This is a simple little URL shortener for personal use which utilizes flat files rather than a database in which to store its data. It's easy to set up, easy to use, fast and secure.
 
+## Demo
+
+* [http://khl.io/nk](http://khl.io/nk) - Redirects to http://khilnani.org
+* [http://khl.io/fb](http://khl.io/fb) - Redirects to https://facebook.com/KhilnaniArt
+* [http://khl.io/tw](http://khl.io/tw) - Redirects to https://twitter.com/nikkhilnani
+
 ## Installation
 
 To install the No DB URL Shortener, take the following steps:
@@ -16,6 +22,8 @@ That's it! Once you've set your password, the URL Shortener is ready for you to 
 ## Adding a Short URL
 
 To generate a short URL and add it to the system, there is **/create** URL which you can make a REST call to. It accepts the following parameters:
+
+> Example: `/create?pw=PASSWORD&link=URL&hash=KEY`
 
 **pw** _required_  
 This is the password you set up during the installation process. Any requests to the **/create** endpoint that don't include the password will result in an error.
@@ -100,9 +108,10 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 0.1.0 - Current Stable
 
-## Contact Me
+## Contributors
 
-You can contact me at my site, [http://michaelbester.com](http://michaelbester.com), as well as [on Twitter](http://twitter.com/mibester).
+* Author:: [http://michaelbester.com](http://michaelbester.com), [on Twitter](http://twitter.com/mibester)
+* Contributor: Nik Khilnani [http://khilnani.org](http://khilnani.org), [on Twitter](http://twitter.com/nikkhilnani)
 
 ## License
 

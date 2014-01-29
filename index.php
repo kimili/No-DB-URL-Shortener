@@ -16,7 +16,11 @@ $URLShortener = new URLShortener();
 			<input type="submit" value="Continue &rarr;">
 		</form>
 	<?php else: ?>
-		Welcome, friend. Sorry, but there's not much to see here.
+<?php
+
+	$URLShortener->redirect_default();
+
+?>
 	<?php endif ?>
 </body>
 </html>
