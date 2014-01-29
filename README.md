@@ -110,8 +110,8 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Contributors
 
-* Author: [http://michaelbester.com](http://michaelbester.com), [on Twitter](http://twitter.com/mibester)
-* Contributor: Nik Khilnani [http://khilnani.org](http://khilnani.org), [on Twitter](http://twitter.com/nikkhilnani)
+* Author: Michael Bester [http://michaelbester.com](http://michaelbester.com), [http://twitter.com/mibester](http://twitter.com/mibester)
+* Contributor: Nik Khilnani [http://khilnani.org](http://khl.io/nk, [http://twitter.com/nikkhilnani](http://khl.io/tw)
 
 ## License
 
