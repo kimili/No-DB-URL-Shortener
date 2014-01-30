@@ -4,8 +4,8 @@
  */
 
 // Url to redirect to if / requested with no params
-// can be a URL, a relative path like '/site' or even 'index.html'
-define('REDIRECT', 'index.html');
+// can be a URL, a relative path like '/site' or a '404.html'
+define('REDIRECT', '404.html');
 
 // Change this to a word or phrase of your choosing to salt the hashes.
 define('HASH_SALT', 'example salt');
