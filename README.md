@@ -4,6 +4,7 @@ This is a simple little URL shortener for personal use which utilizes flat files
 
 ## Demo
 
+* [http://khl.io/](http://khl.io/) - Displays the REDIRECT -> 404.html
 * [http://khl.io/nk](http://khl.io/nk) - Redirects to http://khilnani.org
 * [http://khl.io/fb](http://khl.io/fb) - Redirects to https://facebook.com/KhilnaniArt
 * [http://khl.io/tw](http://khl.io/tw) - Redirects to https://twitter.com/nikkhilnani
