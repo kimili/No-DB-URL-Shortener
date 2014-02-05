@@ -19,17 +19,37 @@
 require_once(realpath(__DIR__ . '/../PasswordHash/PasswordHash.php'));
 require_once(realpath(__DIR__ . '/../Hashids/Hashids.php'));
 
-define('CONFIG_FILE', realpath(__DIR__ . '/../../inc/config.php'));
+define('CONFIG_DIR',  __DIR__ . "/../../inc/");
+
 
 /*
  * Get the config
+ *
+ * Domain config:  DOMAIN.EXT-config.php
+ * DEFAULT config: config.php
  */
-if ( ! file_exists(CONFIG_FILE) ) {
-	die("Can't find the configuration file. Please make sure it is set up.");
+$default_config = realpath(CONFIG_DIR . "config.php");
+$request_uri = $_SERVER['HTTP_HOST'];
+// remove the www
+$www = strrpos($request_uri, "www.");
+if ($www === 0) 
+	$request_uri = substr($request_uri, $www + 4);
+// create the domain file name
+$uri_config = realpath(CONFIG_DIR . $request_uri . '-config.php');
+
+// the domain config is given priority, check if it exists first
+if ( ! file_exists($uri_config) ) {
+	// check for the default config if no domain config is found
+	if ( ! file_exists($default_config) ) {
+		die("Can't find the configuration file. Please make sure it is set up.");
+	} else {
+		define('CONFIG_FILE', $default_config);
+	}
+} else {
+	define('CONFIG_FILE', $uri_config);
 }
+
 require_once(CONFIG_FILE);
-
-
 
 /**
 * URLShortener Class
@@ -37,7 +57,7 @@ require_once(CONFIG_FILE);
 class URLShortener
 {
 
-	private $_version          = '0.1.1';
+	private $_version          = '0.1.0';
 	private $_content_dir      = 'content/';
 	private $_daily_count_file = '';
 	private $_alphabet         = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes 0, O, I, and l to minimize ambiguious hashes

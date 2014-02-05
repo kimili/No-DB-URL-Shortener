@@ -16,6 +16,7 @@ To install the No DB URL Shortener, take the following steps:
 
 * Upload this entire repository to the host on which you want this to live. It should work on the document root or in a subdirectory. Don't forget the `.htaccess` file. Alternatively, you can do clone this repository to the server where you want this to live.
 * In the `inc` directory, rename `config.php.sample` to `config.php` and change the values in that file to something that works for you.
+* If you would like to use the same codebase to host url shortening for more than one domain, you can copy config.php.sample to DOMAIN.EXT-config.php. The code will look for this file before loading the default config.php.
 * Change permissions on `inc/config.php`, `inc/daily-count.txt` and `content/urls` to be writable by the server. Ususally, that involves a `chmod 777` on those files and directories in the terminal.
 * Hit the URL you've uploaded this to in your browser. You should be prompted to set a password, so do so!
 
@@ -109,6 +110,8 @@ If, at any time, you'd like to change your password, it's easy to do. Just take 
 That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure to update your calls to the **/create** endpoint to use the new password!
 
 ## Version History
+
+**0.1.2** - Added multi-domain support i.e. virtual domains pointing to the same IP.
 
 **0.1.1** - Added a default redirect option. Current stable version.
 
