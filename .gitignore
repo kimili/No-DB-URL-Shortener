@@ -1,3 +1,4 @@
 .DS_Store
 content/urls/*.url
 config.php
+*-config.php

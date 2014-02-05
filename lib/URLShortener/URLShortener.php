@@ -89,6 +89,18 @@ class URLShortener
 		return $this->_version;
 	}
 
+
+	/**
+	 * Redirect to the default REDIRECT from config.php
+	 *
+	 **/
+	public function redirect_default()
+	{
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: '.REDIRECT);
+	}
+
+
 	/**
 	 * Creates the new shortlink if the parameters are good
 	 *
