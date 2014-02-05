@@ -4,7 +4,8 @@ This is a simple little URL shortener for personal use which utilizes flat files
 
 ## Demo
 
-* [http://khl.io/](http://khl.io/) - Displays the REDIRECT -> 404.html
+* [http://mub.io/](http://mub.io/) - Displays the REDIRECT -> 404.php
+* [http://mub.io/mb](http://mub.io/mb) - Redirects to http://michaelbester.com
 * [http://khl.io/nk](http://khl.io/nk) - Redirects to http://khilnani.org
 * [http://khl.io/fb](http://khl.io/fb) - Redirects to https://facebook.com/KhilnaniArt
 * [http://khl.io/tw](http://khl.io/tw) - Redirects to https://twitter.com/nikkhilnani
@@ -22,9 +23,11 @@ That's it! Once you've set your password, the URL Shortener is ready for you to 
 
 ## Adding a Short URL
 
-To generate a short URL and add it to the system, there is **/create** URL which you can make a REST call to. It accepts the following parameters:
+To generate a short URL and add it to the system, there is **/create** URL which you can make a REST call to.
 
 > Example: `/create?pw=PASSWORD&link=URL&hash=KEY`
+
+The call accepts the following parameters:
 
 **pw** _required_  
 This is the password you set up during the installation process. Any requests to the **/create** endpoint that don't include the password will result in an error.
@@ -107,12 +110,14 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Version History
 
-0.1.0 - Current Stable
+**0.1.1** - Added a default redirect option. Current stable version.
+
+**0.1.0** - Initial release.
 
 ## Contributors
 
-* Author: Michael Bester [http://michaelbester.com](http://michaelbester.com), [http://twitter.com/mibester](http://twitter.com/mibester)
-* Contributor: Nik Khilnani [http://khilnani.org](http://khl.io/nk), [http://twitter.com/nikkhilnani](http://khl.io/tw)
+* **Author:** Michael Bester ([website](http://michaelbester.com), [Twitter](http://twitter.com/mibester))
+* **Contributor:** Nik Khilnani ([website](http://khl.io/nk), [Twitter](http://khl.io/tw))
 
 ## License
 
