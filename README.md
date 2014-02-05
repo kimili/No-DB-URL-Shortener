@@ -110,7 +110,7 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Version History
 
-**0.1.1** - Added a default redirect option. Current stable version.
+**0.2.0** - Added a default redirect option. Current stable version.
 
 **0.1.0** - Initial release.
 
