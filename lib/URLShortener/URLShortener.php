@@ -57,7 +57,7 @@ require_once(CONFIG_FILE);
 class URLShortener
 {
 
-	private $_version          = '0.1.0';
+	private $_version          = '0.1.2';
 	private $_content_dir      = 'content/';
 	private $_daily_count_file = '';
 	private $_alphabet         = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
