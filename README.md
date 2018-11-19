@@ -141,14 +141,17 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Version History
 
-**0.2.0** - Added a default redirect option. Current stable version.
+**0.2.2** - Added a delete endpoint. Current stable version.
+
+**0.2.0** - Added a default redirect option.
 
 **0.1.0** - Initial release.
 
 ## Contributors
 
-* **Author:** Michael Bester ([website](http://michaelbester.com), [Twitter](http://twitter.com/mibester))
-* **Contributor:** Nik Khilnani ([website](http://khl.io/nk), [Twitter](http://khl.io/tw))
+* **Author:** Michael Bester ([@kimili](https://github.com/kimili), [website](http://michaelbester.com), [Twitter](http://twitter.com/mibester))
+* **Contributor:** Nik Khilnani ([@khilnani](https://github.com/khilnani), [website](http://khl.io/nk), [Twitter](http://khl.io/tw))
+* **Contributor:** Matthias Schaffer ([@fellwell5](https://github.com/fellwell5), [website](http://matthiasschaffer.com))
 
 ## License
 
