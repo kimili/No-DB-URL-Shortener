@@ -37,7 +37,7 @@ require_once(CONFIG_FILE);
 class URLShortener
 {
 
-	private $_version          = '0.2.1';
+	private $_version          = '0.2.2';
 	private $_content_dir      = 'content/';
 	private $_daily_count_file = '';
 	private $_alphabet         = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
@@ -77,7 +77,7 @@ class URLShortener
 		if ( isset($_GET["delete"]) ) {
 			// Let's put this in JSON mode
 			header('Content-type: application/json');
-			echo json_encode($this->_delete_new_shortlink());
+			echo json_encode($this->_delete_shortlink());
 			exit();
 		}
 
@@ -143,7 +143,7 @@ class URLShortener
 	 *
 	 * @return void
 	 **/
-	private function _delete_new_shortlink()
+	private function _delete_shortlink()
 	{
 		$output = new stdClass;
 		// First, check the password
