@@ -37,7 +37,7 @@ require_once(CONFIG_FILE);
 class URLShortener
 {
 
-	private $_version          = '0.2.0';
+	private $_version          = '0.2.2';
 	private $_content_dir      = 'content/';
 	private $_daily_count_file = '';
 	private $_alphabet         = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // Alphabet excludes 0, O, I, and l to minimize ambiguious hashes
@@ -68,10 +68,16 @@ class URLShortener
 		}
 
 		// Here, let's check to see if we're passing in a new link
-		if ( $_GET['create'] == 'true' ) {
+		if ( isset($_GET["create"])) {
 			// Let's put this in JSON mode
 			header('Content-type: application/json');
 			echo json_encode($this->_create_new_shortlink());
+			exit();
+		}
+		if ( isset($_GET["delete"]) ) {
+			// Let's put this in JSON mode
+			header('Content-type: application/json');
+			echo json_encode($this->_delete_shortlink());
 			exit();
 		}
 
@@ -124,6 +130,38 @@ class URLShortener
 			}
 			// Now that we have a hash, try to save the link.
 			return $this->_save_link($hash);
+		} else {
+			$output = new stdClass;
+			$output->error = "Sorry, but your password was incorrect.";
+			return $output;
+		}
+	}
+	
+	/**
+	 * Deletes a shortlink if the parameters are good
+	 * Added by @fellwell5
+	 *
+	 * @return void
+	 **/
+	private function _delete_shortlink()
+	{
+		$output = new stdClass;
+		// First, check the password
+		$this->_init_password_hasher();
+		$authCheck = $this->_hasher->CheckPassword($this->_get_param('pw'), HASHED_PASSWORD);
+
+		if ( $authCheck ) {
+			// In here, we're authorized to delete a new shortlink
+			$hash = $this->_get_param('hash');
+			$file = "$this->_content_dir/urls/$hash.url";
+			if ( ! $hash || ($hash != '' && $this->_does_hash_exist($hash)) ) {
+				$output->hashid = $hash;
+				$output->deleted = unlink($file);
+				return $output;
+			}
+			$output = new stdClass;
+			$output->error = "Sorry, but your hash was not found.";
+			return $output;
 		} else {
 			$output = new stdClass;
 			$output->error = "Sorry, but your password was incorrect.";

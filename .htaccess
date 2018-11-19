@@ -4,6 +4,7 @@ RewriteBase /
 
 # Handle the link creation bits
 RewriteRule ^create.*$ /index.php?create=true [QSA,L]
+RewriteRule ^delete.*$ /index.php?delete=true [QSA,L]
 
 # A catch-all for any items not found
 ErrorDocument 404 /index.php

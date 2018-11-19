@@ -60,6 +60,37 @@ If an error is encountered, the JSON will return an appropriate error message, s
 }
 ```
 
+## Deleting a Short URL
+
+To delete a short URL and remove it from the system, there is **/delete** URL which you can make a REST call to.
+
+> Example: `/delete?pw=PASSWORD&hash=KEY`
+
+The call accepts the following parameters:
+
+**pw** _required_  
+This is the password you set up during the installation process. Any requests to the **/delete** endpoint that don't include the password will result in an error.
+
+**hash** _required_  
+If you haven't passed the hash the script doesn't know what to delete.
+
+When you make a call to **/delete**, you will get a JSON response. A successful response will look something like this:
+
+```
+{
+    "hashid": "olL43",
+    "deleted": true
+}
+```
+
+If an error is encountered, the JSON will return an appropriate error message, something like so:
+
+```
+{
+    "error": "Sorry, but your hash was not found."
+}
+```
+
 ### Example REST call function
 
 Here's an example PHP function that makes the REST call to the URL shortener, passing in parameters from the `$_POST` array. It has the `pw` parameter baked in, but you'd still have to pass in at least `link` as a post parameter:
