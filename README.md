@@ -4,20 +4,20 @@ This is a simple little URL shortener for personal use which utilizes flat files
 
 ## Demo
 
-* [http://mub.io/](http://mub.io/) - Displays the REDIRECT -> 404.php
-* [http://mub.io/mb](http://mub.io/mb) - Redirects to http://michaelbester.com
-* [http://khl.io/nk](http://khl.io/nk) - Redirects to http://khilnani.org
-* [http://khl.io/fb](http://khl.io/fb) - Redirects to https://facebook.com/KhilnaniArt
-* [http://khl.io/tw](http://khl.io/tw) - Redirects to https://twitter.com/nikkhilnani
+- [http://mub.io/](http://mub.io/) - Displays the REDIRECT -> 404.php
+- [http://mub.io/mb](http://mub.io/mb) - Redirects to http://michaelbester.com
+- [http://khl.io/nk](http://khl.io/nk) - Redirects to http://khilnani.org
+- [http://khl.io/fb](http://khl.io/fb) - Redirects to https://facebook.com/KhilnaniArt
+- [http://khl.io/tw](http://khl.io/tw) - Redirects to https://twitter.com/nikkhilnani
 
 ## Installation
 
 To install the No DB URL Shortener, take the following steps:
 
-* Upload this entire repository to the host on which you want this to live. It should work on the document root or in a subdirectory. Don't forget the `.htaccess` file. Alternatively, you can do clone this repository to the server where you want this to live.
-* In the `inc` directory, rename `config.php.sample` to `config.php` and change the values in that file to something that works for you.
-* Change permissions on `inc/config.php`, `inc/daily-count.txt` and `content/urls` to be writable by the server. Ususally, that involves a `chmod 777` on those files and directories in the terminal.
-* Hit the URL you've uploaded this to in your browser. You should be prompted to set a password, so do so!
+- Upload this entire repository to the host on which you want this to live. It should work on the document root or in a subdirectory. Don't forget the `.htaccess` file. Alternatively, you can do clone this repository to the server where you want this to live.
+- In the `inc` directory, rename `config.php.sample` to `config.php` and change the values in that file to something that works for you.
+- Change permissions on `inc/config.php`, `inc/daily-count.txt` and `content/urls` to be writable by the server. Ususally, that involves a `chmod 777` on those files and directories in the terminal.
+- Hit the URL you've uploaded this to in your browser. You should be prompted to set a password, so do so!
 
 That's it! Once you've set your password, the URL Shortener is ready for you to use.
 
@@ -43,20 +43,20 @@ If you have a hash, or slug, that you want to utilize, you can pass it in here. 
 
 When you make a call to **/create**, you will get a JSON response. A successful response will look something like this:
 
-```
+```json
 {
-    "originalURL": "http://michaelbester.com",
-    "shortURL": "http://mub.io/olL43",
-    "baseURL": "mub.io",
-    "hash": "olL43"
+  "originalURL": "http://michaelbester.com",
+  "shortURL": "http://mub.io/olL43",
+  "baseURL": "mub.io",
+  "hash": "olL43"
 }
 ```
 
 If an error is encountered, the JSON will return an appropriate error message, something like so:
 
-```
+```json
 {
-    "error": "Sorry, but your password was incorrect."
+  "error": "Sorry, but your password was incorrect."
 }
 ```
 
@@ -76,18 +76,18 @@ If you haven't passed the hash the script doesn't know what to delete.
 
 When you make a call to **/delete**, you will get a JSON response. A successful response will look something like this:
 
-```
+```json
 {
-    "hashid": "olL43",
-    "deleted": true
+  "hashid": "olL43",
+  "deleted": true
 }
 ```
 
 If an error is encountered, the JSON will return an appropriate error message, something like so:
 
-```
+```json
 {
-    "error": "Sorry, but your hash was not found."
+  "error": "Sorry, but your hash was not found."
 }
 ```
 
@@ -95,7 +95,7 @@ If an error is encountered, the JSON will return an appropriate error message, s
 
 Here's an example PHP function that makes the REST call to the URL shortener, passing in parameters from the `$_POST` array. It has the `pw` parameter baked in, but you'd still have to pass in at least `link` as a post parameter:
 
-```
+```php
 public function build_short_url()
 {
 	$url_shortener_endpoint = 'http://mub.io/create;
@@ -132,10 +132,10 @@ Note that I currently haven't provided any alternative methods to create new sho
 
 If, at any time, you'd like to change your password, it's easy to do. Just take the following steps:
 
-* SSH or FTP into your server, and open `inc/config.php` for editing.
-* Delete the `HASHED_PASSWORD` definition and its comment. Save and close the file.
-* Reload the index page of your instance of the URL shortener in your browser.
-* Set a new password in the form there
+- SSH or FTP into your server, and open `inc/config.php` for editing.
+- Delete the `HASHED_PASSWORD` definition and its comment. Save and close the file.
+- Reload the index page of your instance of the URL shortener in your browser.
+- Set a new password in the form there
 
 That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure to update your calls to the **/create** endpoint to use the new password!
 
@@ -149,11 +149,10 @@ That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure 
 
 ## Contributors
 
-* **Author:** Michael Bester ([@kimili](https://github.com/kimili), [website](http://michaelbester.com), [Twitter](http://twitter.com/mibester))
-* **Contributor:** Nik Khilnani ([@khilnani](https://github.com/khilnani), [website](http://khl.io/nk), [Twitter](http://khl.io/tw))
-* **Contributor:** Matthias Schaffer ([@fellwell5](https://github.com/fellwell5), [website](http://matthiasschaffer.com))
+- **Author:** Michael Bester ([@kimili](https://github.com/kimili), [website](http://michaelbester.com), [Twitter](http://twitter.com/mibester))
+- **Contributor:** Nik Khilnani ([@khilnani](https://github.com/khilnani), [website](http://khl.io/nk), [Twitter](http://khl.io/tw))
+- **Contributor:** Matthias Schaffer ([@fellwell5](https://github.com/fellwell5), [website](http://matthiasschaffer.com))
 
 ## License
 
 MIT License. See the `LICENSE` file. You can use `URLShortener` in personal projects, open source projects and commercial products.
-
