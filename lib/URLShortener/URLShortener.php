@@ -283,10 +283,9 @@ class URLShortener
 		$link = trim($this->_get_param('link'));
 		if ( $link ) {
 
-			if(!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])){
+			if ( !empty($_SERVER['HTTP_X_FORWARDED_PROTO']) ) {
 				$protocol .= $_SERVER['HTTP_X_FORWARDED_PROTO'].'://';
-			}
-			else{
+			} else {
 				$protocol .= !empty($_SERVER['HTTPS']) ? "https://" : "http://";
 			}
 	
@@ -392,5 +391,6 @@ class URLShortener
 	}
 
 }
+
 
 ?>
