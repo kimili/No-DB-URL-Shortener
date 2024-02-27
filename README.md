@@ -139,6 +139,20 @@ If, at any time, you'd like to change your password, it's easy to do. Just take 
 
 That will write a new `HASHED_PASSWORD` definition to `inc/config.php`. Be sure to update your calls to the **/create** endpoint to use the new password!
 
+## For nginx users
+### Rewrire rule in nginx.conf or your vhost config file.
+```
+location / {
+        rewrite ^/(.*)$ /index.php?q=$1;
+}
+```
+### Make url with syntax
+`index.php?create=true?pw=PASSWORD&link=URL&hash=KEY`
+
+### Delete url with syntax
+`index.php?delete=true?pw=PASSWORD&hash=KEY`
+
+
 ## Version History
 
 **0.2.2** - Added a delete endpoint. Current stable version.
