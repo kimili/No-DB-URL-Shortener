@@ -281,15 +281,22 @@ class URLShortener
 	{
 		$output = new stdClass;
 		$link = trim($this->_get_param('link'));
-
 		if ( $link ) {
+
+			if(!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])){
+				$protocol .= $_SERVER['HTTP_X_FORWARDED_PROTO'].'://';
+			}
+			else{
+				$protocol .= !empty($_SERVER['HTTPS']) ? "https://" : "http://";
+			}
+	
 			$fh = fopen("$this->_content_dir/urls/$hash.url", 'w');
 			if ( $fh ) {
 				fwrite($fh, $link);
 				fclose($fh);
 
 				$output->originalURL = $link;
-				$output->shortURL = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/' . $hash;
+				$output->shortURL = $protocol . $_SERVER['SERVER_NAME'] . '/' . $hash;
 				$output->baseURL = $_SERVER['SERVER_NAME'];
 				$output->hash = $hash;
 				// Increment the daily count
@@ -385,6 +392,5 @@ class URLShortener
 	}
 
 }
-
 
 ?>
